@@ -6,5 +6,40 @@
     "ghcr.io/devcontainers/features/powershell:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/python:1": {}
-  }
+},
+"customizations": {
+	"vscode": {
+		"extensions": [
+			"serkonda7.vscode-vba",
+			"aferri.avb",
+			"skyran.vba",
+			"PowerQuery.vscode-powerquery",
+			"AMalanov.editexcelpqm",
+			"ms-vscode.powershell",
+			"ms-python.python",
+			"EditorConfig.EditorConfig",
+			"GitHub.copilot",
+			"GitHub.github-vscode-theme",
+			"GitHub.remotehub",
+			"oderwat.indent-rainbow",
+			"VisualStudioExptTeam.vscodeintellicode",
+			"bierner.markdown-preview-github-styles",
+			"bierner.markdown-mermaid",
+			"christian-kohler.path-intellisense",
+			"adpyke.vscode-sql-formatter",
+			"matt-meyers.vscode-dbml",
+			"redhat.vscode-xml",
+			"redhat.vscode-yaml",
+			"amazonwebservices.aws-toolkit-vscode",
+			"Boto3typed.boto3-ide",
+			"mark-tucker.aws-cli-configure",
+			"duynvu.dbml-language",
+			"hariscodes.vscode-dynamodb",
+			"ljacobsson.eventbridge-assistant",
+			"xyz.plsql-language",
+			"esbenp.prettier-vscode",
+			"tearoom6.s3uploader-vscode"
+		]
+	}
+}
 }

@@ -1,0 +1,33 @@
+{
+    "recommendations": [
+        "serkonda7.vscode-vba",
+        "aferri.avb",
+        "skyran.vba",
+        "powerquery.vscode-powerquery",
+        "amalanov.editexcelpqm",
+        "ms-vscode.powershell",
+        "ms-python.python",
+        "editorconfig.editorconfig",
+        "github.copilot",
+        "github.github-vscode-theme",
+        "github.remotehub",
+        "oderwat.indent-rainbow",
+        "visualstudioexptteam.vscodeintellicode",
+        "bierner.markdown-preview-github-styles",
+        "bierner.markdown-mermaid",
+        "christian-kohler.path-intellisense",
+        "adpyke.vscode-sql-formatter",
+        "matt-meyers.vscode-dbml",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode",
+        "boto3typed.boto3-ide",
+        "mark-tucker.aws-cli-configure",
+        "duynvu.dbml-language",
+        "hariscodes.vscode-dynamodb",
+        "ljacobsson.eventbridge-assistant",
+        "xyz.plsql-language",
+        "esbenp.prettier-vscode",
+        "tearoom6.s3uploader-vscode"
+    ]
+}
