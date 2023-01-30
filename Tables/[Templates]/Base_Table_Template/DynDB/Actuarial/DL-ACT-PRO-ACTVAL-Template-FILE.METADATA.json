@@ -1,0 +1,11 @@
+{
+    "FilePattern": "actval/landing/{{TableName}}*.csv",
+    "TargetRawPath": "actval/current/",
+    "ArchivePath": "actval/archive/",
+    "FileNamePrefix": "{{TableName}}",
+    "FileType": "csv",
+    "PartitionKey": "BatchId",
+    "S3InputBucketName": "rlus-ue1-dev-actuarial-prophet-lake-r-bucket",
+    "S3OutputBucketName": "rlus-ue1-dev-actuarial-prophet-lake-e-bucket",
+    "TargetExploratoryPath": "actval/landing/"
+}
