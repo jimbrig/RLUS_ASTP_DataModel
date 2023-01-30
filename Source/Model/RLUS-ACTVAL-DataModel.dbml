@@ -1,0 +1,205 @@
+// Project
+
+Project rlus_actval_data_model {
+  database_type: 'PostgreSQL'
+  Note: '''
+  # RLUS Actuarial Valuation Data Model
+  > Resolution Life Actuarial Database Data Model
+  
+  ## Overview
+  
+  This project contains the data model associated with the valuiation data, business logic, and workflows pertaining to Resolution Life's Actuarial Reserves.
+  
+  The model contains a variety of tables that can be grouped into the following types:
+  
+  - Mapping Tables (all prefixed with "map_"): Dimensional Reference Tables and Enumerations
+  
+  - Input Tables (prefixed with "input_"): Input tables containing numeric, measures for derived fact (summary) tables to aggregate and enrich.
+  
+  - Meta Tables (prefixed with "meta_"): Informational metadata tables (i.e. Meta_DataDictionary)
+  
+  - Base Tables (prefixed with "base_"): These tables serve as the foundations for summary / derived tables to build from.
+  
+  - Derived Tables: merged, intermediate, or summary tables that build from the mapping, base, and input tables.
+    - Current: Represent just the current quarter's merged data 
+    - Historical: Represent historical quarter's data and should only be uploaded once.
+    - Summary: Current and historical merged summary tables for use in BI tools and downstream analytics and reporting.
+    - Upload: Special type of derived table that filters a summary table with the purpose of uploading the information to a ledger.
+    
+  ## Workflow
+  
+  The business logic behind the derivation of the final Summary tables is split into two core components that will be implemented via SQL based stored procedures in the data pipeline.
+  
+  1. Derive Summary Base Table Combinations of valid entities
+  2. Derive Summary table using the base table as a starting point, mapping all necessary attributes, and finally merging in measures from input tables.
+  
+  ## Tables
+  
+  ### Map Tables
+  
+  - Map_Block
+  - Map_Balance_BS
+  - Map_Balance_IS
+  - Map_Balance_Disc
+  - Map_SubDeal
+  - Map_InputSource
+  - Map_InsCode
+  - Map_LE
+  - Map_Company
+  - Map_Segment
+  - Map_ProdType
+  - Map_Source_Balance
+  - Map_Source_Chg_In_Balance
+  - Map_FinReins
+  - Map_InsCode
+  - Map_EntryType
+  
+  ### Base Tables
+  
+  - Base_SummaryCombos_BS
+  - Base_SummaryCombos_IS
+  - Base_Topsides_SchRunOff_BS
+  - Base_Upload_BS
+  
+  ### Process Tables
+  
+  - Process_Topsides_SchRunOff_BS
+  - Process_ComboExcluded_SubDeal_BS
+  - Process_ComboExcluded_SubDeal_IS
+  - Process_ComboExcluded_Custom_BS
+  - Process_ComboExcluded_Custom_IS
+  - Process_RptdOverride_BS
+  - Process_RptdOverride_IS
+  - Process_Topsides_QtrLag_Adj_BS
+  
+  ### Input Tables
+  
+  #### Topsides
+  
+  - Input_Topsides_QtrLag_BS
+  - Input_Topsides_QtrLag_Actuals_BS
+  - Input_Topsides_SchRunOff_BS
+  - Input_Topsides_Othr_BS
+  - Input_Topsides_Othr_IS
+  
+  #### Prophet
+  
+  - Input_Prophet_VoyaBlock_Seriatim_Plan_BS
+  - Input_Prophet_VoyaBlock_Seriatim_Frcst_BS
+  - Input_Prophet_VoyaBlock_Seriatim_Actual_BS
+  - Input_Prophet_VoyaBlock_RLUSCohort_Actual_BS
+  - Input_Prophet_VoyaBlock_RLUSCohort_Actual_IS
+  - Input_Prophet_VoyaBlock_RLUSCohort_Plan_BS
+  - Input_Prophet_VoyaBlock_RLUSCohort_Plan_IS
+  - Input_Prophet_VoyaBlock_RLUSCohort_AcclClose_BS
+  - Input_Prophet_VoyaBlock_RLUSCohort_AcclClose_IS
+  - Input_Prophet_VoyaBlock_VoyaCohort_Plan_BS
+  - Input_Prophet_VoyaBlock_VoyaCohort_Plan_IS
+  - Input_Prophet_VoyaBlock_VoyaCohort_AcclClose_BS
+  - Input_Prophet_VoyaBlock_VoyaCohort_AcclClose_IS
+  - Input_Prophet_VoyaBlock_VoyaCohort_Actual_BS
+  - Input_Prophet_VoyaBlock_VoyaCohort_Actual_IS
+  
+  ### Current Tables
+  
+  - Current_Topsides_Merged_BS
+  - Current_Topsides_Merged_IS
+  - Current_Topsides_Merged_QtrLag_AvE_BS
+  - Current_Val_Acct_BS
+  - Current_Val_Acct_IS
+  - Current_Val_Disc
+  
+  ### Historical Tables
+  
+  - Historical_Topsides_Merged_BS
+  - Historical_Topsides_Merged_IS
+  - Historical_Topsides_Merged_QtrLag_AvE_BS
+  - Historical_Val_Acct_BS
+  - Historical_Val_Acct_IS
+  - Historical_Val_Disc
+  
+  ### Summary Tables
+  
+  - Summary_Topsides_BS
+  - Summary_Topsides_IS
+  - Summary_Topsides_QtrLag_AvE_BS
+  - Summary_Val_Acct_BS
+  - Summary_Val_Acct_IS
+  - Summary_Val_Disc
+  
+  ### Upload Tables
+  
+  - Upload_Val_Acct_BS_RLUS
+  - Upload_Val_Acct_IS_RLUS
+  - Upload_Val_Disc_RLUS
+  - Upload_Val_Acct_BS_VOYA
+  - Upload_Val_Acct_IS_VOYA
+  - Upload_Val_Disc_VOYA
+  - Upload_Val_Acct_BS_VEN
+  - Upload_Val_Acct_IS_VEN
+  '''
+}
+
+// Groups
+
+tablegroup "Meta Tables" {
+  
+}
+
+tablegroup "Mapping Tables" {
+  "Map_Block"
+}
+
+tablegroup "Input Tables" {
+  
+}
+
+tablegroup "Base Tables" {
+  
+}
+
+tablegroup "Process Tables" {
+  
+}
+
+tablegroup "Current Tables" {
+  
+}
+
+tablegroup "Historical Tables" {
+  
+}
+
+tablegroup "Summary Tables" {
+  
+}
+
+tablegroup "Upload Tables" {
+  
+}
+
+
+// Mapping Tables
+
+Table "Map_Block" [headercolor: #24BAB1] {
+  "block id" INTEGER [unique, pk, not null, default: "increment", note: 'Unique Identifier and Primary Key for Individual Valuation Blocks as an auto-incrementing integer.']
+  "valuation_block" VARCHAR(38) [unique, not null, note: 'Valuation block represented as text.']
+  "valuation_block_description" VARCHAR(100) [default: "null", note: 'Valuation Block Descriptions - default to NULL until filled out by an analyst.']
+  "direct_le" CHAR(3) [not null, note: 'Direct Legal Entity. Should be one of the unique legal entities from Map_LE to maintain referential integrity.']
+  "le_start" CHAR(3) [not null, note: 'Starting Legal Entity. Should be one of the unique legal entities from Map_LE to maintain referential integrity.']
+  "prod_type" VARCHAR(17) [not null, note: 'Product Types. Should be one of the unique Product Types from Map_ProdType to maintain referential integrity.']
+  "par_code" VARCHAR(6) [not null, note: 'PAR Code - either Par or NonPar.']
+  "insureds" CHAR(3) [not null, note: 'Insureds - either Ind (Individual) or Grp (Group).']
+  "rlus_gaap_cohort" VARCHAR(34) [note: 'Resolution Specific GAAP Cohort. Can be NULL for non-cohort blocks.']
+  "tpa_gaap_cohort" VARCHAR(38) [note: 'TPA Specific GAAP Cohort. Can be NULL for non-cohort blocks.']
+  "grp_srvconly" VARCHAR(3) [note: 'Grouping for Service Only Blocks. Can be NULL.']
+  "grp_block" VARCHAR(7) [note: 'Block Grouping. Can be NULL.']
+  "grp_sub_block" VARCHAR(7) [note: 'Sub-Block Level Grouping. Can be NULL.']
+  "financing_deal" VARCHAR(7) [note: 'Financing Deal']
+  "cft_modeled" INTEGER [note: 'Boolean field represented as 0 or 1 (bit) for CFT Modeled.']
+  "ledger_segment" VARCHAR(16) [default: "null", note: 'Segment pertaining to the ledger.']
+  "ledger_product" VARCHAR(58) [default: "null", note: 'Product pertaining to the ledger']
+  "ledger_treaty" VARCHAR(18) [default: "null", note: 'Treaty pertaining to the ledger.']
+
+  Note: 'Mapping table for the direct business accounting attributes of each valuation block.'
+}
