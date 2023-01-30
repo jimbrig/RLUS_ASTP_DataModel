@@ -12,6 +12,7 @@
 
 ### Features
 
+- Add VBA modDialogs
 - Add VBA module modGlobals
 
 ***
