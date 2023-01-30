@@ -12,6 +12,7 @@
 
 ### Features
 
+- VBA add modXLNamedRanges
 - Add VBA modDialogs
 - Add VBA module modGlobals
 
