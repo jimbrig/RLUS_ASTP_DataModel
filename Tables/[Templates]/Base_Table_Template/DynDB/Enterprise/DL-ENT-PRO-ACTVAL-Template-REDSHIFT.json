@@ -1,0 +1,33 @@
+{
+    "JobId": "DL-ENT-PRO-ACTVAL-{{TableName}}-REDSHIFT",
+    "CreateCatalog": "Y",
+    "InputPath": "/actval/summary/",
+    "JobService": "redshift",
+    "RedshiftIamRole": "arn:aws:iam::123367958505:role/rlus-dev-enterprise-prophet-lake-redshift-role",
+    "RedshiftSqlDetails": {
+        "CatalogDataBaseName": [
+            "gluedb_enterprise_prophet_lake_e_inputdb",
+            "gluedb_enterprise_prophet_lake_c_inputdb"
+        ],
+        "TransformationQueryBucket": "rlus-ue1-dev-enterprise-prophet-lake-e-bucket",
+        "TransformationQueryPath": "/actval/redshift-scripts/ASTP_{{TableName}}.sql"
+    },
+    "RerunFlag": "Y",
+    "S3InputBucketName": "rlus-ue1-dev-enterprise-prophet-lake-e-bucket",
+    "SuccessorJobId": "DL-ENT-PRO-ACTVAL-{{SummaryTableName}}-REDSHIFT",
+    "TargetTableDetails": {
+        "Columns": [
+            //  {
+            //      "Name": "{{ColName}}",
+            //      "Type": "{{ColType}}"
+            //  }
+        ]
+    },
+    "DatabaseName": "gluedb_enterprise_prophet_lake_e_inputdb",
+    "DestinationS3Path": "/actval/recproc/{{TableName}}_RedShift/",
+    "OutputFileType": "parquet",
+    "PartitionKeys": "BatchId",
+    "S3OutputBucketName": "rlus-ue1-dev-enterprise-prophet-lake-e-bucket",
+    "TableName": "lake_actval_{{TOLOWER(TableName)}}",
+    "TempTableName": "temp_{{TOLOWER(TableName)}}"
+}
